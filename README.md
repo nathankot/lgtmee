@@ -1,4 +1,4 @@
-[[https://github.com/nathankot/lgtmee/blob/master/logo.png|alt=lgtmee]]
+![lgtmee](https://github.com/nathankot/lgtmee/blob/master/logo.png)
 
 **Looks-good-to-me-emoji**
 
