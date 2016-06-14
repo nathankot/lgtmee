@@ -24,7 +24,7 @@ automatically adding a `review:#{user}` label to the pull-request.
 
 ```sh
 $ heroku create --buildpack https://github.com/heroku/heroku-buildpack-ruby.git
-$ heroku config:set GITHUB_USER=username GITHUB_ACCESS_TOKEN=token
+$ heroku config:set GITHUB_USER=username GITHUB_ACCESS_TOKEN=token WEBHOOK_SECRET=secret
 $ git push heroku master
 ```
 
