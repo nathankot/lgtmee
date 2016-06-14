@@ -1,6 +1,6 @@
 ![lgtmee](https://github.com/nathankot/lgtmee/blob/master/logo.png)
 
-**Looks-good-to-me-emoji**
+# Looks good to me emoji
 
 *Code review with your dedicated emoji.*
 
