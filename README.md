@@ -28,12 +28,12 @@ $ git push heroku master
 
 ## Configuration
 
-Environment variable           | Description
-------------------------------------------------------------------------------------
-`GITHUB_USER`                  | The github user to add labels with.
-`WEBHOOK_SECRET`               | Chosen secret when configuring the webhook.
-`GITHUB_ACCESS_TOKEN`          | A personal access token created for the user.
-`GITHUB_SITE`                  | Alternative enterprise Github site (optional.)
+| Environment variable           | Description                                       |
+| -------------------------------|----------------------------------------------------
+| `GITHUB_USER`                  | The github user to add labels with.               |
+| `WEBHOOK_SECRET`               | Chosen secret when configuring the webhook.       |
+| `GITHUB_ACCESS_TOKEN`          | A personal access token created for the user.     |
+| `GITHUB_SITE`                  | Alternative enterprise Github site (optional.)    |
 
 # License
 
