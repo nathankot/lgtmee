@@ -19,7 +19,7 @@ if ENV['GITHUB_ACCESS_TOKEN'].nil?
 end
 
 github = Github.new do |config|
-  config.endpoint = (ENV['GITHUB_SITE'] || 'https://github.com') << '/api/v3'
+  config.endpoint = ENV['GITHUB_API'] || 'https://api.github.com'
   config.site = ENV['GITHUB_SITE'] || 'https://github.com'
   config.user = ENV['GITHUB_USER']
   config.basic_auth = "#{ENV['GITHUB_USER']}:#{ENV['GITHUB_ACCESS_TOKEN']}"
@@ -54,7 +54,7 @@ post '/' do
 
   data = JSON.parse body
 
-  halt 204, "Bad Github event" unless request.env['X_GITHUB_EVENT'] == 'issue_comment'
+  halt 204, "Bad Github event" unless request.env['HTTP_X_GITHUB_EVENT'] == 'issue_comment'
   halt 204, "Only new comments are considered" unless data['action'] == 'created'
 
   issue_number = data['issue']['number']
@@ -63,16 +63,20 @@ post '/' do
   repo_owner = data['repository']['owner']['login']
   repo_name = data['repository']['name']
 
-  comment_sender_emoji = emojii[comment_sender]
-  puts "Commenter is a registered user with emoji: #{comment_sender_emoji}"
-  halt 204, "Commenter has no emoji registered" if comment_sender_emoji.nil?
-  halt 204, "Comment does not contain a review emoji" unless comment_body.include? comment_sender_emoji
+  puts "Got new comment from #{comment_sender} for #{repo_owner}/#{repo_name}"
+  comment_sender_emojii = emojii[comment_sender]
+  halt 204, "Commenter has no emoji registered" if comment_sender_emojii.nil?
+  puts "Commenter is a registered user with emojii: #{comment_sender_emojii}"
+
+  unless comment_sender_emojii.find { |e| comment_body.include? e }
+    halt 204, "Comment does not contain a review emoji"
+  end
+
   puts 'Emoji found in comment body, adding reviewed label...'
 
-  github.issues.labels.add user: repo_owner,
-                           repo: repo_name,
-                           number: issue_number,
-                           name: "reviewed:#{comment_sender}"
+  label_name = "reviewed:#{comment_sender}"
+
+  github.issues.labels.add repo_owner, repo_name, issue_number, label_name
 
   status 201
 end

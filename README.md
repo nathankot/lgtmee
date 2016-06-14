@@ -17,6 +17,7 @@ automatically adding a `review:#{user}` label to the pull-request.
 4. For each repository that you want to use this for, give access to the new
    user and setup a webhook pointing to your desired application URL. The
    webhook only needs to be forwarding `issue_comment` events.
+5. Edit `emoji.json` and add users and their corresponding emojii!
 
 ### Set up on Heroku
 
@@ -34,6 +35,7 @@ $ git push heroku master
 | `WEBHOOK_SECRET`               | Chosen secret when configuring the webhook.       |
 | `GITHUB_ACCESS_TOKEN`          | A personal access token created for the user.     |
 | `GITHUB_SITE`                  | Alternative enterprise Github site (optional.)    |
+| `GITHUB_API`                   | Alternative Github API endpoint (optional.)    |
 
 # License
 
