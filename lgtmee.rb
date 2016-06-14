@@ -54,8 +54,8 @@ post '/' do
 
   data = JSON.parse body
 
-  halt 422, "Bad Github event" unless request.env['X_GITHUB_EVENT'] == 'issue_comment'
-  halt 422, "Only new comments are considered" unless data['action'] == 'created'
+  halt 204, "Bad Github event" unless request.env['X_GITHUB_EVENT'] == 'issue_comment'
+  halt 204, "Only new comments are considered" unless data['action'] == 'created'
 
   issue_number = data['issue']['number']
   comment_sender = data['sender']['login']
