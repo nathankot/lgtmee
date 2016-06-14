@@ -43,8 +43,8 @@ post '/' do
                   body)
 
     halt 401, 'Bad signature' unless Rack::Utils.secure_compare(
-                                       signature,
-                                       received_signater)
+                                        signature,
+                                        received_signature)
   end
 
   data = JSON.parse body
