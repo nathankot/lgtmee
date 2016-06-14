@@ -57,6 +57,7 @@ post '/' do
   halt 422, "Bad Github event" unless request.env['X_GITHUB_EVENT'] == 'issue_comment'
   halt 422, "Only new comments are considered" unless data['action'] == 'created'
 
+  issue_number = data['issue']['number']
   comment_sender = data['sender']['login']
   comment_body = data['comment']['body']
   repo_owner = data['repository']['owner']['login']
@@ -66,10 +67,10 @@ post '/' do
   halt 204, "Commenter has no emoji registered" if comment_sender_emoji.nil?
   halt 204, "Comment does not contain a review emoji" unless comment_body.include? comment_sender_emoji
 
-  github.issues.labels.create user: repo_owner,
-                              repo: repo_name,
-                              name: "reviewed:#{comment_sender}",
-                              color: ENV['LABEL_COLOR'] || '#FFFFFF'
+  github.issues.labels.add user: repo_owner,
+                           repo: repo_name,
+                           number: issue_number,
+                           name: "reviewed:#{comment_sender}"
 
   status 201
 end
