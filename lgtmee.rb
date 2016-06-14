@@ -1,5 +1,6 @@
 require 'github_api'
 require 'sinatra'
+require 'puma'
 require 'json'
 
 if ENV['WEBHOOK_SECRET'].nil?
@@ -27,6 +28,10 @@ end
 
 # Keep list of emojii in memory
 emojii = JSON.parse(File.open('emoji.json').read)
+
+configure do
+  set :server, :puma
+end
 
 post '/' do
   request.body.rewind
