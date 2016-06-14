@@ -64,8 +64,10 @@ post '/' do
   repo_name = data['repository']['name']
 
   comment_sender_emoji = emojii[comment_sender]
+  puts "Commenter is a registered user with emoji: #{comment_sender_emoji}"
   halt 204, "Commenter has no emoji registered" if comment_sender_emoji.nil?
   halt 204, "Comment does not contain a review emoji" unless comment_body.include? comment_sender_emoji
+  puts 'Emoji found in comment body, adding reviewed label...'
 
   github.issues.labels.add user: repo_owner,
                            repo: repo_name,
