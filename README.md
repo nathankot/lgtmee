@@ -1,5 +1,3 @@
-# Looks good to me emoji
-
 ![lgtmee](https://github.com/nathankot/lgtmee/blob/master/logo.png)
 
 *Code review with your dedicated emoji.*
